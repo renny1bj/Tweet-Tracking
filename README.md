@@ -21,5 +21,10 @@ analysis also contributes to the precision score but at the expense of higher ru
 The results contributed greatly to the classification of individual tweets as the dataset
 for the classification task were updated continuously, thereby increasing the number of
 training examples hourly.
-![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+The web application is dynamic. Below are the screenshots of the web app.
+![Alt Text](https://github.com/renny1bj/Tweet-Tracking/blob/main/p1.png)
+![Alt Text](https://github.com/renny1bj/Tweet-Tracking/blob/main/p2.png)
+![Alt Text](https://github.com/renny1bj/Tweet-Tracking/blob/main/p3.png)
+![Alt Text](https://github.com/renny1bj/Tweet-Tracking/blob/main/p4.png)
 
+Code for website is currently unavailable
