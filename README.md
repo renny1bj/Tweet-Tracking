@@ -21,7 +21,7 @@ analysis also contributes to the precision score but at the expense of higher ru
 The results contributed greatly to the classification of individual tweets as the dataset
 for the classification task were updated continuously, thereby increasing the number of
 training examples hourly.
-The web application is dynamic. Below are the screenshots of the web app.
+The web application is dynamic thanks to highcharts. Below are the screenshots of the web app.
 ![Alt Text](https://github.com/renny1bj/Tweet-Tracking/blob/main/p1.png)
 ![Alt Text](https://github.com/renny1bj/Tweet-Tracking/blob/main/p2.png)
 ![Alt Text](https://github.com/renny1bj/Tweet-Tracking/blob/main/p3.png)
