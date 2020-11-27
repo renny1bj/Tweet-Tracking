@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="author" content="">
+		<meta charset="utf-8">
+		<!-- JQuery links  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/timeline.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+		<!-- <link href="../static/css/main.css" rel="stylesheet" type="text/css" /> -->
+    <style>
+     body {
+       background-image: url("https://livewallpaperhd.com/wp-content/uploads/2017/05/White-Wallpaper-HD-Plain-Uk.png");
+        }
+        .highcharts-strong {
+      font-weight: bold;
+    }
+
+    .highcharts-figure, .highcharts-data-table table {
+      min-width: 320px;
+      max-width: 600px;
+      margin: 1em auto;
+    }
+
+    .highcharts-data-table table {
+    	font-family: Verdana, sans-serif;
+    	border-collapse: collapse;
+    	border: 1px solid #EBEBEB;
+    	margin: 10px auto;
+    	text-align: center;
+    	width: 100%;
+    	max-width: 500px;
+    }
+    .highcharts-data-table caption {
+      padding: 1em 0;
+      font-size: 1.2em;
+      color: #555;
+    }
+    .highcharts-data-table th {
+    	font-weight: 600;
+      padding: 0.5em;
+    }
+    .highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+      padding: 0.5em;
+    }
+    .highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+      background: #f8f8f8;
+    }
+    .highcharts-data-table tr:hover {
+      background: #f1f7ff;
+    }
+		.highcharts-color-0 {
+			fill: #CAE7B9;
+			stroke: #CAE7B9;
+		}
+
+		.highcharts-color-1 {
+			fill: #F3DE8A;
+			stroke: #F3DE8A;
+		}
+
+		.highcharts-color-2 {
+			fill: #808A9F;
+			stroke: #808A9F;
+		}
+
+		.highcharts-color-3 {
+			fill: #EB9486;
+			stroke: #EB9486;
+		}
+
+		.highcharts-color-4 {
+			fill: #F3DE9A;
+			stroke: #E1DEE3;
+		}  .highcharts-background {
+		fill: #ffffff00;
+	}
+	.highcharts-container {
+		font-family: "Lato", sans-serif;
+		}
+		.highcharts-color-0 {
+			fill: #CAE7B9;
+			stroke: #CAE7B9;
+		}
+
+		.highcharts-color-1 {
+			fill: #F3DE8A;
+			stroke: #F3DE8A;
+		}
+
+		.highcharts-color-2 {
+			fill: #808A9F;
+			stroke: #808A9F;
+		}
+
+		.highcharts-color-3 {
+			fill: #EB9486;
+			stroke: #EB9486;
+		}
+
+		.highcharts-color-4 {
+			fill: #E1DEE3;
+			stroke: #E1DEE3;
+		}
+    </style>
+
+    <!-- <script>
+        function searchToggle(obj, evt){
+      var container = $(obj).closest('.search-wrapper');
+          if(!container.hasClass('active')){
+              container.addClass('active');
+              evt.preventDefault();
+          }
+          else if(container.hasClass('active') && $(obj).closest('.input-holder').length == 0){
+              container.removeClass('active');
+              // clear input
+              container.find('.search-input').val('');
+          }
+  }
+    </script> -->
+
+		<!-- SUPPORT FOR IE6-8 OF HTML5 ELEMENTS -->
+		<!--[if lt IE 9]>
+					<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+			<![endif]-->
+
+		<!-- <link rel="shortcut icon" href="{{ url_for('static', filename='ico/favicon.ico') }}"> -->
+		{% block head %}
+			<title>Real</title>
+		{% endblock %}
+	</head>
+
+	<body>
+    <figure class="highcharts-figure">
+      <div id="container"></div>
+      <p class="highcharts-description">
+        Timeline charts are used to place events on a time axis,
+        such as this example showing the major space exploration
+        events from 1951 to 1975.
+      </p>
+    </figure>
+    <!-- <div class="search-wrapper">
+    <div class="input-holder">
+            <input type="text" class="search-input" placeholder="Type to search" />
+            <button class="search-icon" onclick="searchToggle(this, event);" ><span> </span></button>
+        </div>
+        <span class="close" onclick="searchToggle(this, event);"></span>
+        <a href="127.0.0.1:5000/home"></a>
+    </div> -->
+		<!-- <div id={{ chartID|safe }} class="chart" style="height: 100px; width: 500px"></div> -->
+		<!-- <script>
+      function searchToggle(obj, evt){
+    var container = $(obj).closest('.search-wrapper');
+        if(!container.hasClass('active')){
+            container.addClass('active');
+            evt.preventDefault();
+        }
+        else if(container.hasClass('active') && $(obj).closest('.input-holder').length == 0){
+            container.removeClass('active');
+            // clear input
+            container.find('.search-input').val('');
+        }
+}
+		</script>
+			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
+			<!-- <script src="http://code.highcharts.com/highcharts.js"></script> -->
+			<!-- <script>
+      $(document).ready(function() {
+      	$(chart_id).highcharts({
+      		chart: chart,
+      		title: title,
+      		xAxis: xAxis,
+      		yAxis: yAxis,
+      		series: series,
+      	});
+      });
+
+      </script> -->
+			<script>
+
+	        var chartGraph;
+	        function requestData()
+	        {
+	            // Ajax call to get the Data from Flask
+	            var requests = $.get('/graphdata');
+
+	            var tm = requests.done(function (result)
+	            {
+	                // Temperature
+	                var seriesGraph = chartGraph.series[0],
+	                    shiftGraph = seriesGraph.data.length > 10;
+
+	                var data1 = []
+	                data1.push(result[2]);
+	                data1.push('rr');
+                  data1.push('skkk');
+	                chartGraph.series[0].addPoint(data1, true, shiftGraph);
+	                setTimeout(requestData, 2000);
+	            });
+	        }
+
+	        $(document).ready(function()
+	        {
+              chartGraph = new Highcharts.chart('container', {
+                chart: {
+                  type: 'timeline',
+                  events: {
+											load: requestData
+										}
+                },
+                accessibility: {
+                  screenReaderSection: {
+                    beforeChartFormat: '<h5>{chartTitle}</h5>' +
+                      '<div>{typeDescription}</div>' +
+                      '<div>{chartSubtitle}</div>' +
+                      '<div>{chartLongdesc}</div>' +
+                      '<div>{viewTableButton}</div>'
+                  },
+                  point: {
+                    valueDescriptionFormat: '{index}. {label}. {description}.'
+                  }
+                },
+                xAxis: {
+                  visible: false
+                },
+                yAxis: {
+                  visible: false
+                },
+                title: {
+                  text: 'Timeline of Space Exploration'
+                },
+                subtitle: {
+                  text: 'Info source: <a href="https://en.wikipedia.org/wiki/Timeline_of_space_exploration">www.wikipedia.org</a>'
+                },
+                colors: [
+                  '#4185F3',
+                  '#427CDD',
+                  '#406AB2',
+                  '#3E5A8E',
+                  '#3B4A68',
+                  '#363C46'
+                ],
+                series: [{
+                  data: []
+                }]
+              });
+
+	        });
+	    </script>
+	</body>
+</html>

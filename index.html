@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+
+    <title>Flask App </title>
+
+    <!-- Bootstraps Java Scipts Links -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <!-- JQuery links  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/variable-pie.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <!-- <script src="http://code.highcharts.com/highcharts.js"></script> -->
+    <script src="https://code.highcharts.com/5.0.0/js/highcharts.js"></script>
+    <script src="http://code.highcharts.com/highcharts-more.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <link href="https://code.highcharts.com/5.0.0/css/highcharts.css" rel="stylesheet" type="text/css">
+
+    <!--Gauge  -->
+    <script type="text/javascript" src="http://pubnub.github.io/eon/lib/eon.js"></script>
+
+    <style>
+    @import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700');
+    html,
+    body {
+        margin: 0;
+        background-image: url("https://wallpaperboat.com/wp-content/uploads/2019/06/plain-black-19.jpg");
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Quicksand", sans-serif;
+        font-size: 62.5%;
+        font-size: 10px;
+    }
+    #con {
+      height: 500px;
+      }
+
+      .highcharts-figure, .highcharts-data-table table {
+      min-width: 320px;
+      max-width: 700px;
+      margin: 1em auto;
+      }
+
+      .highcharts-data-table table {
+      font-family: Verdana, sans-serif;
+      border-collapse: collapse;
+      border: 1px solid #EBEBEB;
+      margin: 10px auto;
+      text-align: center;
+      width: 100%;
+      max-width: 500px;
+      }
+      .highcharts-data-table caption {
+      padding: 1em 0;
+      font-size: 1.2em;
+      color: #555;
+      }
+      .highcharts-data-table th {
+      font-weight: 600;
+      padding: 0.5em;
+      }
+      .highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+      padding: 0.5em;
+      }
+      .highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+      background: #f8f8f8;
+      }
+      .highcharts-data-table tr:hover {
+      background: #f1f7ff;
+      }
+      .highcharts-color-0 {
+        fill: #CAE7B9;
+        stroke: #CAE7B9;
+      }
+
+      .highcharts-color-1 {
+        fill: #F3DE8A;
+        stroke: #F3DE8A;
+      }
+
+      .highcharts-color-2 {
+        fill: #808A9F;
+        stroke: #808A9F;
+      }
+
+      .highcharts-color-3 {
+        fill: #EB9486;
+        stroke: #EB9486;
+      }
+
+      .highcharts-color-4 {
+        fill: #E1DEE3;
+        stroke: #E1DEE3;
+      }  .highcharts-background {
+      fill: #ffffff00;
+    }
+    .highcharts-container {
+      font-family: "Lato", sans-serif;
+      }
+      .highcharts-color-0 {
+        fill: #CAE7B9;
+        stroke: #CAE7B9;
+      }
+
+      .highcharts-color-1 {
+        fill: #F3DE8A;
+        stroke: #F3DE8A;
+      }
+
+      .highcharts-color-2 {
+        fill: #808A9F;
+        stroke: #808A9F;
+      }
+
+      .highcharts-color-3 {
+        fill: #EB9486;
+        stroke: #EB9486;
+      }
+
+      .highcharts-color-4 {
+        fill: #E1DEE3;
+        stroke: #E1DEE3;
+      }
+    /*-- Inspiration taken from abdo steif -->
+    /* --> https://codepen.io/abdosteif/pen/bRoyMb?editors=1100*/
+
+    /* Navbar section */
+
+    .nav {
+        width: 100%;
+        height: 65px;
+        position: fixed;
+        line-height: 65px;
+        text-align: center;
+    }
+
+    .nav div.logo {
+        float: left;
+        width: auto;
+        height: auto;
+        padding-left: 3rem;
+    }
+
+    .nav div.logo a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 2.5rem;
+    }
+
+    .nav div.logo a:hover {
+        color: #00E676;
+    }
+
+    .nav div.main_list {
+        height: 65px;
+        float: right;
+    }
+
+    .nav div.main_list ul {
+        width: 100%;
+        height: 65px;
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav div.main_list ul li {
+        width: auto;
+        height: 65px;
+        padding: 0;
+        padding-right: 3rem;
+    }
+
+    .nav div.main_list ul li a {
+        text-decoration: none;
+        color: #fff;
+        line-height: 65px;
+        font-size: 2.4rem;
+    }
+
+    .nav div.main_list ul li a:hover {
+        color: #00E676;
+    }
+
+
+    /* Home section */
+
+    .home {
+        width: 100%;
+        height: 100vh;
+        background-image: url(https://images.unsplash.com/photo-1498550744921-75f79806b8a7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b0f6908fa5e81286213c7211276e6b3d&auto=format&fit=crop&w=1500&q=80);
+        background-position: center top;
+    	background-size:cover;
+    }
+
+    .navTrigger {
+        display: none;
+    }
+
+    .nav {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        -webkit-transition: all 0.4s ease;
+        transition: all 0.4s ease;
+    }
+
+
+    /* Media qurey section */
+
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        .container {
+            margin: 0;
+        }
+    }
+
+    @media screen and (max-width:768px) {
+        .navTrigger {
+            display: block;
+        }
+        .nav div.logo {
+            margin-left: 15px;
+        }
+        .nav div.main_list {
+            width: 100%;
+            height: 0;
+            overflow: hidden;
+        }
+        .nav div.show_list {
+            height: auto;
+            display: none;
+        }
+        .nav div.main_list ul {
+            flex-direction: column;
+            width: 100%;
+            height: 100vh;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            background-color: #111;
+            /*same background color of navbar*/
+            background-position: center top;
+        }
+        .nav div.main_list ul li {
+            width: 100%;
+            text-align: right;
+        }
+        .nav div.main_list ul li a {
+            text-align: center;
+            width: 100%;
+            font-size: 3rem;
+            padding: 20px;
+        }
+        .nav div.media_button {
+            display: block;
+        }
+    }
+
+
+    /* Animation */
+    /* Inspiration taken from Dicson https://codemyui.com/simple-hamburger-menu-x-mark-animation/ */
+
+    .navTrigger {
+        cursor: pointer;
+        width: 30px;
+        height: 25px;
+        margin: auto;
+        position: absolute;
+        right: 30px;
+        top: 0;
+        bottom: 0;
+    }
+
+    .navTrigger i {
+        background-color: #fff;
+        border-radius: 2px;
+        content: '';
+        display: block;
+        width: 100%;
+        height: 4px;
+    }
+
+    .navTrigger i:nth-child(1) {
+        -webkit-animation: outT 0.8s backwards;
+        animation: outT 0.8s backwards;
+        -webkit-animation-direction: reverse;
+        animation-direction: reverse;
+    }
+
+    .navTrigger i:nth-child(2) {
+        margin: 5px 0;
+        -webkit-animation: outM 0.8s backwards;
+        animation: outM 0.8s backwards;
+        -webkit-animation-direction: reverse;
+        animation-direction: reverse;
+    }
+
+    .navTrigger i:nth-child(3) {
+        -webkit-animation: outBtm 0.8s backwards;
+        animation: outBtm 0.8s backwards;
+        -webkit-animation-direction: reverse;
+        animation-direction: reverse;
+    }
+
+    .navTrigger.active i:nth-child(1) {
+        -webkit-animation: inT 0.8s forwards;
+        animation: inT 0.8s forwards;
+    }
+
+    .navTrigger.active i:nth-child(2) {
+        -webkit-animation: inM 0.8s forwards;
+        animation: inM 0.8s forwards;
+    }
+
+    .navTrigger.active i:nth-child(3) {
+        -webkit-animation: inBtm 0.8s forwards;
+        animation: inBtm 0.8s forwards;
+    }
+
+    @-webkit-keyframes inM {
+        50% {
+            -webkit-transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(45deg);
+        }
+    }
+
+    @keyframes inM {
+        50% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(45deg);
+        }
+    }
+
+    @-webkit-keyframes outM {
+        50% {
+            -webkit-transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(45deg);
+        }
+    }
+
+    @keyframes outM {
+        50% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(45deg);
+        }
+    }
+
+    @-webkit-keyframes inT {
+        0% {
+            -webkit-transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+            -webkit-transform: translateY(9px) rotate(0deg);
+        }
+        100% {
+            -webkit-transform: translateY(9px) rotate(135deg);
+        }
+    }
+
+    @keyframes inT {
+        0% {
+            transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+            transform: translateY(9px) rotate(0deg);
+        }
+        100% {
+            transform: translateY(9px) rotate(135deg);
+        }
+    }
+
+    @-webkit-keyframes outT {
+        0% {
+            -webkit-transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+            -webkit-transform: translateY(9px) rotate(0deg);
+        }
+        100% {
+            -webkit-transform: translateY(9px) rotate(135deg);
+        }
+    }
+
+    @keyframes outT {
+        0% {
+            transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+            transform: translateY(9px) rotate(0deg);
+        }
+        100% {
+            transform: translateY(9px) rotate(135deg);
+        }
+    }
+
+    @-webkit-keyframes inBtm {
+        0% {
+            -webkit-transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+            -webkit-transform: translateY(-9px) rotate(0deg);
+        }
+        100% {
+            -webkit-transform: translateY(-9px) rotate(135deg);
+        }
+    }
+
+    @keyframes inBtm {
+        0% {
+            transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+            transform: translateY(-9px) rotate(0deg);
+        }
+        100% {
+            transform: translateY(-9px) rotate(135deg);
+        }
+    }
+
+    @-webkit-keyframes outBtm {
+        0% {
+            -webkit-transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+            -webkit-transform: translateY(-9px) rotate(0deg);
+        }
+        100% {
+            -webkit-transform: translateY(-9px) rotate(135deg);
+        }
+    }
+
+    @keyframes outBtm {
+        0% {
+            transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+            transform: translateY(-9px) rotate(0deg);
+        }
+        100% {
+            transform: translateY(-9px) rotate(135deg);
+        }
+    }
+
+    .affix {
+        padding: 0;
+        background-color: #111;
+    }
+
+
+    .myH2 {
+    	text-align:center;
+    	font-size: 4rem;
+    }
+    .myP {
+    	text-align: justify;
+    	padding-left:15%;
+    	padding-right:15%;
+    	font-size: 20px;
+    }
+    @media all and (max-width:700px){
+    	.myP {
+    		padding:2%;
+    	}
+    }
+    body{
+      background-image: url("https://wallpaperboat.com/wp-content/uploads/2019/06/plain-black-19.jpg");
+    /* margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: consolas; */
+    }
+
+    .container{
+        width: 1000px;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+    }
+    .containers{
+        width: 1000px;
+        position: relative;
+        /* align-items: center: */
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .container .card{
+        position: relative;
+        background: #ffffff00;
+        cursor: pointer;
+    }
+    .containers .cards{
+        position: relative;
+        background: #ffffff00;
+        cursor: pointer;
+    }
+
+    .container .card .face{
+        width: 300px;
+        height: 200px;
+        transition: 0.5s;
+    }
+    .containers .cards .faces{
+        width: 30px;
+        height: 200px;
+        transition: 0.5s;
+    }
+
+    .container .card .face.face1{
+        position: relative;
+        background: #00000;
+        opacity: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        transform: translateY(100px);
+    }
+
+    .container .card:hover .face.face1{
+        background: #ffffff00;
+        transform: translateY(0);
+    }
+    .container .card .face.face1 .content{
+        opacity: 1;
+        transition: 0.5s;
+    }
+    .container .card:hover .face.face1 .content{
+        opacity: 1;
+    }
+    .container .card .face.face1 .content img{
+        max-width: 100px;
+    }
+    .containers .cards .faces.face1 .content img{
+        max-width: 100px;
+    }
+
+    .container .card .face.face1 .content h3{
+        margin: 10px 0 0;
+        padding: 0;
+        color: #fff;
+        text-align: center;
+        font-size: 1.5em;
+    }
+    .containers .cards .faces.face1 .content h3{
+        margin: 10px 0 0;
+        padding: 0;
+        color: #fff;
+        text-align: center;
+        font-size: 1.5em;
+    }
+
+    .container .card .face.face2{
+        position: relative;
+        background: #ffffff00;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        box-sizing: border-box;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+        transform: translateY(-100px);
+    }
+
+    .container .card:hover .face.face2{
+        transform: translateY(0);
+    }
+    .containers .cards:hover .faces.face2{
+        transform: translateY(0);
+    }
+
+    .container .card .face.face2 .content p{
+        margin: 0;
+        padding: 0;
+    }
+    .containers .cards .faces.face2 .content p{
+        margin: 0;
+        padding: 0;
+    }
+
+    .container .card .face.face2 .content a{
+        margin: 15px 0 0;
+        display:  inline-block;
+        text-decoration: none;
+        font-weight: 900;
+        color: #333;
+        padding: 5px;
+        border: 1px solid #333;
+    }
+    .containers .cards .faces.face2 .content a{
+        margin: 15px 0 0;
+        display:  inline-block;
+        text-decoration: none;
+        font-weight: 900;
+        color: #333;
+        padding: 5px;
+        border: 1px solid #333;
+    }
+
+    .container .card .face.face2 .content a:hover{
+        background: #333;
+        color: #fff;
+    }
+    .containers .cards .faces.face2 .content a:hover{
+        background: #333;
+        color: #fff;
+    }
+    .cards-list {
+      z-index: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .cards {
+      margin: 30px auto;
+      width: 900px;
+      height: 500px;
+      border-radius: 40px;
+    box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22);
+      cursor: pointer;
+      transition: 0.4s;
+    }
+
+    .cards .card_image {
+      width: inherit;
+      height: inherit;
+      border-radius: 40px;
+    }
+
+    .cards .card_image img {
+      width: inherit;
+      height: inherit;
+      border-radius: 40px;
+      object-fit: cover;
+    }
+
+    .cards .card_title {
+      text-align: center;
+      border-radius: 0px 0px 40px 40px;
+      font-family: sans-serif;
+      font-weight: bold;
+      font-size: 30px;
+      margin-top: -80px;
+      height: 40px;
+    }
+
+    .cards:hover {
+      transform: scale(0.9, 0.9);
+      box-shadow: 5px 5px 30px 15px rgba(0,0,0,0.25),
+        -5px -5px 30px 15px rgba(0,0,0,0.22);
+    }
+
+    .title-white {
+      color: white;
+    }
+
+    .title-black {
+      color: black;
+    }
+
+    @media all and (max-width: 500px) {
+      .card-list {
+        /* On small screens, we are no longer using row direction but column */
+        flex-direction: column;
+      }
+    }
+
+
+    /*
+    .card {
+      margin: 30px auto;
+      width: 300px;
+      height: 300px;
+      border-radius: 40px;
+      background-image: url('https://i.redd.it/b3esnz5ra34y.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-repeat: no-repeat;
+    box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22);
+      transition: 0.4s;
+    }
+    */
+    </style>
+
+  <script>
+    $('.navTrigger').click(function () {
+      $(this).toggleClass('active');
+      console.log("Clicked menu");
+      $("#mainListDiv").toggleClass("show_list");
+      $("#mainListDiv").fadeIn();
+
+  });
+
+  </script>
+</head>
+
+<body>
+  <nav class="nav">
+        <div class="container">
+            <div class="logo">
+                <a href="#">Your Logo</a>
+            </div>
+            <div id="mainListDiv" class="main_list">
+                <ul class="navlinks">
+                    <li><a href="http://127.0.0.1:5000/graph">Graph</a></li>
+                    <li><a href="http://127.0.0.1:5000/timeline">Timeline</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <span class="navTrigger">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+        </div>
+    </nav>
+    <div class="jumbotron">
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+        <h1 class="text-center text-white" style="font-size:4vw;">Real-time Rumor Detection Visualization </h1>
+    </div>
+    <br>
+    <br>
+    <div class="container">
+       <div class="card">
+           <div class="face face1">
+               <div class="content">
+                   <!-- <img src="https://github.com/Jhonierpc/WebDevelopment/blob/master/CSS%20Card%20Hover%20Effects/img/design_128.png?raw=true"> -->
+                   <h1 class="sensor1" style="color:green"> Sensor : </h1>
+               </div>
+           </div>
+           <div class="face face2">
+               <div class="content">
+                   <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cum cumque minus iste veritatis provident at.</p>
+                       <a href="#">Read More</a>
+               </div>
+           </div>
+       </div>
+       <div class="card">
+           <div class="face face1">
+               <div class="content">
+                   <!-- <img src="https://github.com/Jhonierpc/WebDevelopment/blob/master/CSS%20Card%20Hover%20Effects/img/code_128.png?raw=true"> -->
+                   <h1 class="sensor2" style="color:red"> Sensor : </h1>
+               </div>
+           </div>
+           <div class="face face2">
+               <div class="content">
+                   <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cum cumque minus iste veritatis provident at.</p>
+                       <a href="#">Read More</a>
+               </div>
+           </div>
+       </div>
+       <!-- <div class="card">
+           <div class="face face1">
+               <div class="content">
+                   <img src="https://github.com/Jhonierpc/WebDevelopment/blob/master/CSS%20Card%20Hover%20Effects/img/launch_128.png?raw=true">
+                   <h3>Launch</h3>
+               </div>
+           </div>
+           <div class="face face2">
+               <div class="content">
+                   <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cum cumque minus iste veritatis provident at.</p>
+                       <a href="#">Read More</a>
+               </div>
+           </div>
+       </div> -->
+   </div>
+   <div class="cards-list">
+
+ <div class="cards 1">
+   <div class="card_image" id="data-humidity">
+     <!-- <img src="https://i.redd.it/b3esnz5ra34y.jpg" />  -->
+   </div>
+   <div class="card_title title-white">
+     <!-- <p>Card Title</p> -->
+   </div>
+ </div>
+
+   <div class="cards 2">
+   <div class="card_image" id="data-temperature">
+     <!-- <img src="https://cdn.blackmilkclothing.com/media/wysiwyg/Wallpapers/PhoneWallpapers_FloralCoral.jpg" /> -->
+     </div>
+   <div class="card_title title-white">
+     <!-- <p>Card Title</p> -->
+   </div>
+ </div>
+ <figure class="highcharts-figure">
+   <div id="con"></div>
+   <p class="highcharts-description">
+     Variable radius pie charts can be used to visualize a
+     second dimension in a pie chart. In this chart, the more
+     densely populated countries are drawn further out, while the
+     slice width is determined by the size of the country.
+   </p>
+ </figure>
+ <!-- <div class="cards 3">
+   <div class="card_image">
+     <img src="https://media.giphy.com/media/10SvWCbt1ytWCc/giphy.gif" />
+   </div>
+   <div class="card_title">
+     <p>Card Title</p>
+   </div>
+ </div>
+
+   <div class="cards 4">
+   <div class="card_image">
+     <img src="https://media.giphy.com/media/LwIyvaNcnzsD6/giphy.gif" />
+     </div>
+   <div class="card_title title-black">
+     <p>Card Title</p>
+   </div>
+   </div> -->
+   <!-- <figure class="highcharts-figure">
+     <div id="con"></div>
+     <p class="highcharts-description">
+       Pie chart showing a hollow semi-circle. This is a compact visualization,
+       often used in dashboards.
+     </p>
+   </figure> -->
+ </div>
+    <script>
+        var chartTemperatue;
+        var chartHumidity;
+        var chartpie;
+
+        function requestData()
+        {
+            // Ajax call to get the Data from Flask
+            var requests = $.get('/data');
+
+            var tm = requests.done(function (result)
+            {
+                // Temperature
+                var seriesTemperature = chartTemperatue.series[0],
+                    shiftTemperature = seriesTemperature.data.length > 20;
+                var seriespie = chartpie.series[0],
+                    shiftpie = seriespie.data.length > 1;
+                    // Temperature
+                // Humidity
+                var seriesHumidity = chartHumidity.series[0],
+                    shiftHumidity = seriesTemperature.data.length > 20;
+
+                // Add the Point
+                // Time Temperature\
+                var data1 = [];
+                data1.push(result[0]);
+                data1.push(result[1]);
+
+                var data2 = [];
+                data2.push(result[0]);
+                data2.push(result[2]);
+
+                var data3 = [];
+                data3.push('Real news   '+ Math.round((result[4]/(result[3]+ result[4]))*100) +'%');
+                data3.push(result[4]);
+                data3.push((result[4]/(result[3]+ result[4]))*100 +'%');
+
+                var data4 = [];
+                data4.push('fake news   '+ Math.round((result[3]/(result[3]+ result[4]))*100) +'%');
+                data4.push(result[3]);
+                data4.push((result[3]/(result[3]+ result[4]))*100 +'%');
+                // data3.push(result[2]);
+                //   name: 'Spain',
+                //   y: 505370,
+                //   z: 92.9
+                // }, {
+                //   name: 'France',
+                //   y: 551500,
+                //   z: 118.7
+                // }
+
+                // data3.push({
+                //       name: 'fake',
+                //       y: result[2]},
+                chartpie.series[0].addPoint(data3, true, shiftpie);
+                chartpie.series[0].addPoint(data4, true, shiftpie);
+                chartTemperatue.series[0].addPoint(data1, true, shiftTemperature);
+                chartHumidity.series[0].addPoint(data2, true, shiftHumidity);
+                $(".sensor1").text("");
+                $(".sensor1").text("Real : " +  Math.round(data1[1]) );
+                $(".sensor2").text("");
+                $(".sensor2").text("Fake : " +  Math.round(data2[1]) );
+
+                // call it again after one second
+                setTimeout(requestData, 8000);
+
+            });
+        }
+
+        $(document).ready(function()
+        {
+            // --------------Chart 1 ----------------------------
+            chartTemperatue = new Highcharts.Chart({
+                chart:
+                    {
+                    renderTo: 'data-temperature',
+                    defaultSeriesType: 'area',
+                    events: {
+                        load: requestData
+                      },
+                      spacingTop: 10,
+                      spacingBottom: 10,
+                      spacingLeft: 10,
+                      spacingRight: 20
+                    },
+                title:
+                    {
+                    text: 'Fake news chart'
+                    },
+                xAxis: {
+                    type: 'datetime',
+                    tickPixelInterval: 100,
+                    maxZoom: 20 * 1000
+                        },
+                yAxis: {
+                    minPadding: 0.1,
+                    maxPadding: 0.1,
+                    title: {
+                        text: 'Count',
+                        margin: 80
+                            }
+                         },
+                series: [{
+                    color : '#c23d23',
+                    lineColor: '#303430',
+                    name: 'Fake news chart',
+                    data: []
+                }]
+            });
+            // --------------Chart 1 Ends - -----------------
+            chartHumidity = new Highcharts.Chart({
+                chart:
+                    {
+                        renderTo: 'data-humidity',
+                        defaultSeriesType: 'area',
+                        events: {
+                            load: requestData
+                        },
+                        spacingTop: 10,
+                        spacingBottom: 10,
+                        spacingLeft: 10,
+                        spacingRight: 20
+                    },
+                title:
+                    {
+                        text: 'Real news chart'
+                    },
+                xAxis: {
+                    type: 'datetime',
+                    tickPixelInterval: 150,
+                    maxZoom: 20 * 1000
+                },
+                yAxis: {
+                    minPadding: 0.1,
+                    maxPadding: 0.1,
+                    title: {
+                        text: 'Value',
+                        margin: 80
+                    }
+                },
+                series: [{
+                    lineColor: '#1d82b8',
+                    name: 'Real news chart',
+                    data: []
+                }]
+            });
+            chartpie = new Highcharts.chart('con', {
+              chart: {
+                type: 'variablepie',
+                events: {
+                    load: requestData
+                  },
+              },
+              title: {
+                text: 'Countries compared by population density and total area.'
+              },
+              tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u15CF</span> <b> {point.name}</b><br/>' +
+                  'Number of news: <b>{point.y}</b><br/>' +
+                  'Actual Percentage: <b>{point.z}</b><br/>'
+              },
+              series: [{
+                // minPointSize: 50,
+                // innerSize: '100%',
+                // zMin: 0,
+                name: 'Percentage of fake and Real news',
+                data: []
+                //   {
+                //   name: 'Spain',
+                //   y: 505370,
+                //   z: 92.9
+                // }, {
+                //   name: 'France',
+                //   y: 551500,
+                //   z: 118.7
+                // }
+              }]
+            });
+
+        });
+    </script>
+
+
+<script>
+    class Image{
+
+        constructor(imgUrl, size)
+        {
+            this.imgUrl=imgUrl;
+            this.size=size;
+        }
+
+        backgroundImage()
+        {
+            console.log("inside function ")
+            // Select the Image
+            var img = document.querySelector(".jumbotron");
+
+            // create Css Text
+            var text = "margin:auto;"+
+                "background-image: url("+this.imgUrl+");" +
+                "background-size:cover;"+
+                "opacity:0.5;"+
+                "background-blend-mode: darken;"+
+                "height: "+ this.size + "vh;";
+
+            img.style.cssText =  text;
+        }
+
+        centerTitle()
+        {
+            /*
+                Center the Title
+             */
+            var t1 = document.querySelector("#title");
+            t1.classList.add("text-white");
+            t1.classList.add("text-center");
+            t1.classList.add("display-3");
+        }
+    }
+    const imgUrl = 'https://wallpaperboat.com/wp-content/uploads/2019/06/plain-black-09.jpg'
+    const size = "40";
+    var obj = new Image(imgUrl, size);
+    obj.backgroundImage();
+    obj.centerTitle();
+    </script>
+</body>
+
+
+</html>
